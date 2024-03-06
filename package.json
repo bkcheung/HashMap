@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@bkcheung/linked-list": "^1.0.0"
+  }
+}
