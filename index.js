@@ -1,11 +1,14 @@
-import linkedList from "@bkcheung/linked-list";
+const linkedList = require('@bkcheung/linked-list');
+
 let buckets = 16;
 let map = hashMap();
 map.set('hello','all');
 map.set('hi','ya');
+map.set('hello','all');
 map.set('hello','world');
+map.set('hdlmo','yall'); //same hashkey as hello
 
-console.log(map.hash_map);
+console.log(map.hash_map[map.hash('hello')].head);
 
 function hashMap(){
     return {
@@ -20,49 +23,24 @@ function hashMap(){
         },
         set(key, value){
             let hashKey = this.hash(key);
-            let bucket = this.hash_map[hashKey];
-            let newNode = node();
-            newNode.setKeyValue(key, value);
-            if(bucket!==undefined){
-                if(bucket.key === key){
-                    console.log('exists!');
-                    bucket.setKeyValue(key, value); //overwrite
-                    return;
+            if(typeof this.hash_map[hashKey] === 'object'){
+                //if bucket exists, check if exact key exists, if so, replace value, else, add node
+                let currNode = this.hash_map[hashKey].head;
+                while(currNode.value[0]!==key && currNode.next!==null){
+                    currNode = currNode.next;
                 }
-                while(bucket.next!==undefined){
-                    if(bucket.key === key){
-                        console.log('exists!');
-                        bucket.setKeyValue(key, value); //overwrite
-                        return;
-                    } else{
-                        bucket = bucket.next;
-                    }
+                if(currNode.value[0]===key){
+                    console.log("Replace!");
+                    currNode.value = [key,value];
+                }else{
+                    console.log("New node");
+                    this.hash_map[hashKey].append([key,value]);
                 }
-                bucket.next = newNode;
+            }else{
+                //if bucket doesn't exist, initialize & add key value pair
+                this.hash_map[hashKey] = linkedList();
+                this.hash_map[hashKey].append([key,value]);
             }
-            bucket = newNode;
-            console.log(bucket);
         }        
     }
 }
-function linkedList(){
-    return{
-        head,
-        
-    }
-}
-function node(){
-    return{
-        key: null,
-        value: null,
-        next: null,
-        setKeyValue(key, value){
-            this.key = key;
-            this.value = value;
-        },
-        setNext(next){
-            this.next = next;
-        }
-    }
-}
-
