@@ -7,8 +7,9 @@ map.set('hi','ya');
 map.set('hello','all');
 map.set('hello','world');
 map.set('hdlmo','yall'); //same hashkey as hello
+console.log(map.get('heleee'));
 
-console.log(map.hash_map[map.hash('hello')].head);
+// console.log(map.hash_map[map.hash('hello')].head);
 
 function hashMap(){
     return {
@@ -30,10 +31,8 @@ function hashMap(){
                     currNode = currNode.next;
                 }
                 if(currNode.value[0]===key){
-                    console.log("Replace!");
                     currNode.value = [key,value];
                 }else{
-                    console.log("New node");
                     this.hash_map[hashKey].append([key,value]);
                 }
             }else{
@@ -41,6 +40,22 @@ function hashMap(){
                 this.hash_map[hashKey] = linkedList();
                 this.hash_map[hashKey].append([key,value]);
             }
-        }        
+        },
+        get(key){
+            let hashKey = this.hash(key);
+            if(this.hash_map[hashKey]===undefined){
+                return "Key not found";
+            }
+            let listNode = this.hash_map[hashKey].head;
+            while(listNode.next !== null){
+                if(listNode.value[0]===key){
+                    return listNode.value[1];
+                }
+                listNode = listNode.next;
+            }
+            if(listNode.value[0]===key){
+                return listNode.value[1];
+            } 
+        }     
     }
 }
