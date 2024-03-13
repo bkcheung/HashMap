@@ -7,9 +7,9 @@ map.set('hi','ya');
 map.set('hello','all');
 map.set('hello','world');
 map.set('hdlmo','yall'); //same hashkey as hello
-console.log(map.remove('hello'));
 
-console.log(map.hash_map[map.hash('hello')].head);
+console.log(map.length());
+// console.log(map.hash_map[map.hash('hello')].head);
 
 function hashMap(){
     return {
@@ -97,6 +97,20 @@ function hashMap(){
                 return true;
             } 
             return false;
-        }
+        },
+        length(){
+            let notNull = value => value !== null;
+            let filtered = this.hash_map.filter(notNull);
+            let length = 0;
+            filtered.forEach(item => {
+                let currNode = item.head;
+                while(currNode.next!==null){
+                    currNode = currNode.next;
+                    length++;
+                }
+                length++;
+            })
+            return length;
+        },
     }
 }
