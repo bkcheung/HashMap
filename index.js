@@ -8,7 +8,7 @@ map.set('hello','all');
 map.set('hello','world');
 map.set('hdlmo','yall'); //same hashkey as hello
 
-console.log(map.keys());
+console.log(map.values());
 // console.log(map.hash_map);
 
 function hashMap(){
@@ -128,6 +128,20 @@ function hashMap(){
                 keyArr.push(currNode.value[0]);
             })
             return keyArr;
+        },
+        values(){
+            let notNull = value => value !== null;
+            let filtered = this.hash_map.filter(notNull);
+            let valueArr = [];
+            filtered.forEach(item => {
+                let currNode = item.head;
+                while(currNode.next!==null){
+                    valueArr.push(currNode.value[1]);
+                    currNode = currNode.next;
+                }
+                valueArr.push(currNode.value[1]);
+            })
+            return valueArr;
         }
     }
 }
