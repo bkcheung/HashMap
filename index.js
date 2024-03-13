@@ -7,7 +7,7 @@ map.set('hi','ya');
 map.set('hello','all');
 map.set('hello','world');
 map.set('hdlmo','yall'); //same hashkey as hello
-console.log(map.get('heleee'));
+console.log(map.has('hdlmo'));
 
 // console.log(map.hash_map[map.hash('hello')].head);
 
@@ -44,7 +44,7 @@ function hashMap(){
         get(key){
             let hashKey = this.hash(key);
             if(this.hash_map[hashKey]===undefined){
-                return "Key not found";
+                return "Key does not exist";
             }
             let listNode = this.hash_map[hashKey].head;
             while(listNode.next !== null){
@@ -56,6 +56,20 @@ function hashMap(){
             if(listNode.value[0]===key){
                 return listNode.value[1];
             } 
-        }     
+        },
+        has(key){
+            let hashKey = this.hash(key);
+            if(this.hash_map[hashKey]===undefined){
+                return false;
+            }
+            let listNode = this.hash_map[hashKey].head;
+            while(listNode.next!==null){
+                if(listNode.value[0]===key){
+                    return true;
+                }
+                listNode = listNode.next;
+            }
+            return listNode.value[0]===key;
+        }
     }
 }
