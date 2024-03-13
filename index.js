@@ -9,7 +9,6 @@ map.set('hello','world');
 map.set('hdlmo','yall'); //same hashkey as hello
 
 console.log(map.entries());
-// console.log(map.hash_map);
 
 function hashMap(){
     return {
