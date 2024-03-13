@@ -1,5 +1,6 @@
 const linkedList = require('@bkcheung/linked-list');
 
+//Testing
 let buckets = 16;
 let map = hashMap();
 map.set('hello','all');
@@ -24,6 +25,11 @@ function hashMap(){
         set(key, value){
             let hashKey = this.hash(key);
             if(typeof this.hash_map[hashKey] === 'object'){
+                //Check if # of buckets should grow to avoid excessive collisons
+                let load = this.length()/buckets;
+                if(load>0.75){
+                    buckets*=2;
+                }
                 //if bucket exists, check if exact key exists, if so, replace value, else, add node
                 let currNode = this.hash_map[hashKey].head;
                 while(currNode.value[0]!==key && currNode.next!==null){
