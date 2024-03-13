@@ -8,8 +8,8 @@ map.set('hello','all');
 map.set('hello','world');
 map.set('hdlmo','yall'); //same hashkey as hello
 
-console.log(map.length());
-// console.log(map.hash_map[map.hash('hello')].head);
+console.log(map.clear());
+console.log(map.hash_map);
 
 function hashMap(){
     return {
@@ -112,5 +112,8 @@ function hashMap(){
             })
             return length;
         },
+        clear(){
+            this.hash_map = [];
+        }
     }
 }
